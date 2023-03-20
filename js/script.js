@@ -1,3 +1,4 @@
+let bombs
 document.getElementById("play-button").addEventListener("click", startGame);
 
 function startGame() {
@@ -37,9 +38,11 @@ function startGame() {
     }
 
     // Genero le bombe
-    const bombs = generateBombs(16, cellsnumbers);
+    bombs = generateBombs(16, cellsnumbers);
     console.log(bombs);
 }
+
+
 /**
  * bombe
  * @param {number} maxNumber
@@ -54,6 +57,7 @@ function generateBombs(numbersQuantity, maxNumber) {
             number.push(rndNumber);
         }
     }
+    return number;
 }
 
 // Funzione
@@ -87,9 +91,13 @@ function generateGridItem(text) {
     return newSquare;
 }
 
-
 function handleItemClick() {
-    this.classList.add("cyan");
     const clickNumber = parseInt(this.textContent);
-    console.log(this.clickNumber);
+    if (bombs.includes(clickNumber)) {
+        console.log("BOMBAAA");
+        this.classList.add("red");
+    } else {
+        this.classList.add("cyan");       
+    }
+    console.log(clickNumber);
 }
