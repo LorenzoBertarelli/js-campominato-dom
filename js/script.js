@@ -1,4 +1,7 @@
-let bombs
+let bombs;
+let gameOver = false;
+let points = 0;
+let clickCounter = 0;
 document.getElementById("play-button").addEventListener("click", startGame);
 
 function startGame() {
@@ -91,13 +94,21 @@ function generateGridItem(text) {
     return newSquare;
 }
 
+// CLICK SE è BOMBA O NO
 function handleItemClick() {
     const clickNumber = parseInt(this.textContent);
-    if (bombs.includes(clickNumber)) {
-        console.log("BOMBAAA");
-        this.classList.add("red");
-    } else {
-        this.classList.add("cyan");       
-    }
+    if (gameOver === false) {
+        if (bombs.includes(clickNumber)) {
+            console.log("BOMBAAA");
+            this.classList.add("red");
+            alert("hai preso la bomba, ma hai totalizzato " + points + " punti");
+            gameOver = true;
+        } else {
+            this.classList.add("cyan");
+            points++;
+            document.getElementById("points-counter").textContent = `CONTATORE PUNTI: ${points}`;
+        }        
     console.log(clickNumber);
+    }   
 }
+
